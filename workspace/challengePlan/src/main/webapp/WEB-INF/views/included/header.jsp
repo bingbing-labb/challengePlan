@@ -7,6 +7,7 @@
  	<!-- full Calendar -->
 	<link href='/resources/packages/core/main.css' rel='stylesheet' />
 	<link href='/resources/packages/daygrid/main.css' rel='stylesheet' />
+	<link href='/resources/packages/timegrid/main.css' rel='stylesheet' />
 	
 	<!-- css Downloaded -->
     <link rel="icon" type="image/png" href="/resources/img/favicon.ico">
@@ -56,3 +57,32 @@
 <script src='/resources/packages/core/main.js'></script>
 <script src='/resources/packages/interaction/main.js'></script>
 <script src='/resources/packages/daygrid/main.js'></script>
+<script src='/resources/packages/timegrid/main.js'></script>
+<nav class="navbar navbar-expand-md fixed-top navbar-transparent" color-on-scroll="500">
+	<div class="container">
+		<div class="navbar-translate">
+			<button class="navbar-toggler navbar-toggler-right navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar"></span>
+                    <span class="navbar-toggler-bar"></span>
+                    <span class="navbar-toggler-bar"></span>
+        	</button>
+			<a class="navbar-brand" href="main">challenge!</a>
+		</div>
+		<div class="collapse navbar-collapse" id="navbarToggler">
+                <ul class="navbar-nav ml-auto">
+                	<li class="nav-item">
+                        <a href="#" target="_blank" class="nav-link" style="text-align:1.6;">SCHEDULE<i class="nc-icon nc-book-bookmark" style="margin-left:5px;"></i></a>
+                    </li>
+                	<li class="nav-item">
+                        <a href="#" target="_blank" class="nav-link">CHECK LIST<i class="nc-icon nc-layout-11" style="margin-left:5px"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="newPlan" target="_blank" class="nav-link">NEW PLAN <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
+                    </li>
+                    <li class="nav-item">
+						<a href="#" target="_blank" class="btn btn-danger btn-round">MYPAGE</a>
+					</li>
+                </ul>
+            </div>
+	</div>
+</nav>

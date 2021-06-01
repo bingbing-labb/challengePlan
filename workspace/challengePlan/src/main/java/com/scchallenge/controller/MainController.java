@@ -21,4 +21,9 @@ public class MainController {
 	public void main(Locale locale) {
 		log.info(locale + " - main(): 뷰와 연결");
 	}
+	
+	@GetMapping("/newPlan")
+	public void newPlan(Locale locale) {
+		log.info(locale + " - newPlan(): 뷰와 연결");
+	}
 }
