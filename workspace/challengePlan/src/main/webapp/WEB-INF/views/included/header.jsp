@@ -26,6 +26,8 @@
     <link href='http://fonts.googleapis.com/css?family=Montserrat:400,300,700' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href="/resources/css/nucleo-icons.css" rel="stylesheet" />
+    
+    <link href="/resources/css/design.css" rel="stylesheet" />
 </head>
 <style>
  .calendar-section {
@@ -58,10 +60,18 @@
 <script src='/resources/packages/interaction/main.js'></script>
 <script src='/resources/packages/daygrid/main.js'></script>
 <script src='/resources/packages/timegrid/main.js'></script>
+<!-- js  -->
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
+<!-- css -->
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <nav class="navbar navbar-expand-md fixed-top navbar-transparent" color-on-scroll="500">
 	<div class="container">
 		<div class="navbar-translate">
 			<button class="navbar-toggler navbar-toggler-right navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar"></span>
                     <span class="navbar-toggler-bar"></span>
                     <span class="navbar-toggler-bar"></span>
                     <span class="navbar-toggler-bar"></span>
@@ -71,17 +81,21 @@
 		<div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav ml-auto">
                 	<li class="nav-item">
-                        <a href="#" target="_blank" class="nav-link" style="text-align:1.6;">SCHEDULE<i class="nc-icon nc-book-bookmark" style="margin-left:5px;"></i></a>
+                        <a href="#" class="nav-link" style="text-align:1.6;">SCHEDULE<i class="nc-icon nc-book-bookmark" style="margin-left:5px;"></i></a>
                     </li>
                 	<li class="nav-item">
-                        <a href="#" target="_blank" class="nav-link">CHECK LIST<i class="nc-icon nc-layout-11" style="margin-left:5px"></i></a>
+                        <a href="#" class="nav-link">CHECK LIST<i class="nc-icon nc-layout-11" style="margin-left:5px"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a href="newPlan" target="_blank" class="nav-link">NEW PLAN <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
+                        <a href="newPlan" class="nav-link">NEW PLAN <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
                     </li>
                     <li class="nav-item">
-						<a href="#" target="_blank" class="btn btn-danger btn-round">MYPAGE</a>
+                        <a href="myPage" class="nav-link">MyPage <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
+                    </li>
+                    <li class="nav-item">
+						<a href="challenge" class="btn btn-danger btn-round">CHALLENGE</a>
 					</li>
+					
                 </ul>
             </div>
 	</div>
