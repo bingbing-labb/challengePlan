@@ -1,4 +1,25 @@
 
+#planRegisterform{
+	width:80%;
+	margin-left:10%;
+	margin-top:5vh;
+}
+
+ .btnContainer{
+ margin : 15px 0;
+ margin-right: 5%;
+ }
+ .formHeader{
+ display:inline;
+ width: 100%
+ }
+ .formHeader button{
+ margin-top: 30px;
+ float:right;
+ align:center;
+ max-width:15vh;
+ font-size: 1em;
+ }
   .dayPicker {
     margin: 40px 10px;
     padding: 0;
@@ -13,15 +34,11 @@
   ::-webkit-calendar-picker-indicator{
        margin-right:10px;
     }
-    .btnContainer{
-     margin : 10px 0;
-     float:right;
-    }
   #addChallBtn{
  
   min-width: 150px;
   }
-.challList{
+.challNow{
 	min-height:200px;
 	width: 90%;
 	background-color:rgb(112,112,112,0.8);
@@ -29,7 +46,12 @@
 	border-radius: 10px;
 	margin-top:100px;
 	margin-left: 5%;
-}    
+}  
+.challNow h3{
+	font-size:2em;
+	margin-left:10%;
+	color:white; 
+}  
  .challenger-form{
  	display:none;
  }
@@ -44,11 +66,139 @@
  font-size: 20px;
  margin: 10px 0;
  }
+ .challBtn{
+ 	float:right;
+ }
  .formButton{
- 	margin-top:50px;
-  	float:right;
+ 	margin-right:10%;
+ 	width:100%;
  }
  .formButton button{
- 	width:100px;
- 	margin-right:15px;
+ 	width:10vh;
+ 	margin-left:1%;
+ 	font-size:1em;
+ 	float:right;
+
  }
+ 
+ #navbarToggler ul li a{
+ font-size:1.1em;
+ }
+ 
+#addSubPlan {
+	font-size: 0.8em;
+	float:right;
+	width:10%;
+	display:none;
+	
+}
+.checkBoxContainer{
+	width:100%;
+	float:right;
+	margin: 5px 0;
+	padding:15px 0;
+}
+.checkBoxContainer p{
+	color:white;
+	margin-left:30px;
+	line-height:2.2em;
+}
+.checkBoxContainer input{
+	margin: 0.5em 0;
+	width:1.5em;
+	height:1.5em;
+}
+
+.subPlanContainer{
+	/* display:none; */
+
+	}
+	
+/*checkList css*/
+
+.planContainer{
+	margin-left:5%;
+	width:90%;
+	background-color:rgba(123,123,123,0.5);	
+}
+
+.planContainer .title{
+	width:98%;
+	text-align:right;
+	margin-right:2%;
+}
+
+.planContainer .title h4{
+	margine:0 3%;
+}
+.hiddenList{
+	margin-bottom: 2%;	
+}
+
+.hiddenList a{
+	max-width: 20vh;
+	float:left;
+	margin-bottom: 2%;
+	margin-right:5%;
+	font-size:1.2em;	
+}
+#defaultPlan{
+	height:35vh;
+	background-color:white;
+	margin:3% 2%;
+	box-shadow: 5px 10px 10px #888888;
+}
+#weeklyProgress{
+	height:35vh;
+	background-color:white;
+	margin:3% 2%;
+	box-shadow: 5px 10px 10px #888888;
+}
+#DailyPlan{
+	height:50vh;
+	background-color:white;
+	margin:3% 2%;
+	 box-shadow: 5px 10px 10px #888888;
+	}
+
+@supports (display:flex){
+	
+	@media screen and (min-width:1000px){
+	.hiddenList{
+	display:none;
+	}
+	#defaultPlan{
+	float:left;
+	width:56%;
+	height:35vh;
+	margin:0;
+	margin-left:1.5%;
+	background-color:white;
+	box-shadow: 5px 10px 10px #888888;
+	}
+	#weeklyProgress{
+	float:left;
+	width:56%;
+	height:35vh;
+	margin:0;
+	margin-top:2vh;
+	margin-left:1.5%;
+	margin-bottom:2%;
+	background-color:white;
+	box-shadow: 5px 10px 10px #888888;
+	}
+	#DailyPlan{
+	float:right;
+	width:40%;
+	height:72vh;
+	margin:0;
+	margin-right:1.5%;
+	margin-bottom:2%;
+	background-color:white;
+	 box-shadow: 5px 10px 10px #888888;
+	}
+}
+}
+
+
+

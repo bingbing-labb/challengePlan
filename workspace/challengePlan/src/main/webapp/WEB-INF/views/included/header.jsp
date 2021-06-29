@@ -76,7 +76,7 @@
                     <span class="navbar-toggler-bar"></span>
                     <span class="navbar-toggler-bar"></span>
         	</button>
-			<a class="navbar-brand" href="main">challenge!</a>
+			<a class="navbar-brand" href="main" style="font-size:1.8em">challenge!</a>
 		</div>
 		<div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav ml-auto">
@@ -84,7 +84,7 @@
                         <a href="#" class="nav-link" style="text-align:1.6;">SCHEDULE<i class="nc-icon nc-book-bookmark" style="margin-left:5px;"></i></a>
                     </li>
                 	<li class="nav-item">
-                        <a href="#" class="nav-link">CHECK LIST<i class="nc-icon nc-layout-11" style="margin-left:5px"></i></a>
+                        <a href="checkList" class="nav-link">CHECK LIST<i class="nc-icon nc-layout-11" style="margin-left:5px"></i></a>
                     </li>
                     <li class="nav-item">
                         <a href="newPlan" class="nav-link">NEW PLAN <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
@@ -100,3 +100,13 @@
             </div>
 	</div>
 </nav>
+<script type="text/javascript">
+
+function clearForm(form, secId){
+	$('.'+secId).hide();
+    $('[type=text],[type=date],[type=time], select, textarea', form).val('');
+    $('[type=checkbox]:checked, [type=radio]:checked', form).prop('checked', false);
+    $('#challDur').val('2 시간');
+    $('#planAsync option:eq(0)').prop("selected","selected");
+}
+</script>

@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<jsp:include page="/WEB-INF/views/included/header.jsp" flush="true" /><!-- header and tags -->
 
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/included/footer.jsp" flush="true" /><!-- footer and tags -->

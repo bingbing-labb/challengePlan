@@ -30,7 +30,7 @@
     					</div>
     				</div>
 
-    				<h1 class="presentation-subtitle text-center">다 뿌수고 승리합시다! </h1>
+    				<h1 class="presentation-subtitle text-center"> </h1>
     			</div>
     		</div>
             <div class="moving-clouds" style="background-image: url('/resources/img/clouds.png'); ">
@@ -45,12 +45,11 @@
     				</div>
     				<div class="row">
     					<div class="calendar-section">
-    						<jsp:include page="/resources/calendar/daygrid-views.jsp" />
+    						<jsp:include page="/resources/calendar/selectable.jsp" />
     					</div>
     				</div>
     			</div>
     		</div>
     	</div>
     </div>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/included/footer.jsp" flush="true" /><!-- footer and tags -->

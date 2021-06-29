@@ -3,20 +3,22 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <jsp:include page="/WEB-INF/views/included/header.jsp" flush="true" /><!-- header and tags -->
-<div class="wrapper">
-	<div class="section section-image section-bottoms" style="background-image: url('/resources/img/login-image.jpg');">
-		<div class="container">
+<div class="page-header section-dark" style="background-image: url('/resources/img/login-image.jpg');">
+<div class="container">
 				<div class="row">
-					<div class="challList">
+					<div class="challNow">
 						<div>
+							<h3 class="tim-title"><b>TEST1 님의 현재 CHALLENGE</b></h3>
+							<a id="challNowItem" href="#" style="font-size: 40px; margin-left:10%">현재 챌린지</a><!-- 이후 팝업 정보 띄우기 -->
 						</div>
 					</div>
-					<div class="btnContainer">
-						<button id="addChallBtn" type="submit" class="btn btn-default btn-round">챌린지 추가하기</button>
-					</div>
+				</div>
+				<div class="btnContainer" >
+					<button id="addChallBtn" type="submit" class="btn btn-info" style="float:right;">챌린지 관리</button>
 				</div>
 		</div>
-	</div>
+</div>
+<div class="wrapper">
 	<div class="challenger-form section section-dark">
 		<div class="container">
 			<div class="row">
@@ -37,10 +39,10 @@
 							</div>
 							<label>챌린시 날짜, 시간</label>
 							<div class='form-group'>
-								<div class='input-group date'style='width:49%; float:left; margin-right:10px'>
+								<div class='input-group date'style='width:49%; float:left; margin-right:1%'>
 									<input name="challDate" type='date' class="form-control">
 								</div>
-								<div class='input-group time'style='width:49%; margin-left:10px'>
+								<div class='input-group time'style='width:49%; margin-left:1%'>
 									<input  name="challTime" type='time' class="form-control">
 								</div>
 							</div>
@@ -53,8 +55,8 @@
 								<input type='text'  name="challCompanyReq" id='challCompanyReq' class="form-control" placeholder='동행'>
 							</div>
 							<div class='challBtn'>
-								<button id="challRegBtn" type="submit" class="btn btn-primary btn-round">등록</button>
-								<button id="challDissBtn" type="button" class="btn btn-danger btn-round" onclick="clearForm(this.form)">취소</button>
+								<button id="challRegBtn" type="submit" class="btn btn-primary btn-round" style="margin-right:5px">등록</button>
+								<button id="challDissBtn" type="button" class="btn btn-danger btn-round" onclick="clearForm(this.form,'challenger-form')">닫기</button>
 							</div>
 							
 						</div>			
@@ -77,6 +79,7 @@ setChallList();
 $('#addChallBtn').on("click",function(){
 	if($(".challenger-form").css('display') =='none'){
 		$('.challenger-form').show();
+		location.href="#challregform";
 		console.log("form open");
 	}else{
 		$('.challenger-form').hide();
@@ -92,14 +95,6 @@ $("#challregform").on("submit",function(e){
 		regChallenge();
 	
 });
-
-function clearForm(form){
-	$('.challenger-form').hide();
-    $('[type=text],[type=date],[type=time], select, textarea', form).val('');
-    $('[type=checkbox]:checked, [type=radio]:checked', form).prop('checked', false);
-    $('#challDur').val('2 시간');
-    $('#planAsync option:eq(0)').prop("selected","selected");
-}
 
 function setChallList(){
 	var html ="";
