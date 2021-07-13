@@ -17,9 +17,9 @@ import lombok.extern.log4j.Log4j;
 public class MainController {
 	//private MainService mainService;
 	
-	@GetMapping("/main")
+	/*@GetMapping("/main")
 	public void main(Locale locale) {
 		log.info(locale + " - main(): 뷰와 연결");
 	}
-	
+	*/
 }

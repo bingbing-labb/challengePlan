@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <jsp:include page="/WEB-INF/views/included/header.jsp" flush="true" /><!-- header and tags -->
-<div class="wrapper">
+<div class="wrapper" id='newPlan'>
 	<div class ="section section-dark">
 	<div class="container">
 		<div class="row">
@@ -43,10 +43,6 @@
 				<button type="button" class="btn btn-danger btn-round">취소</button>
 				<button type="submit" class="btn btn-primary btn-round">등록</button>
 			</div>
-				
-			<div class="col-md-6" style="display:none">
-				<jsp:include  page="/resources/calendar/selectable.jsp" />
-			</div>
 		</div>
 	</div>
 	</div>
@@ -70,9 +66,9 @@
 		</div>
 	</div>
 </div>
-<jsp:include page="/WEB-INF/views/included/footer.jsp" flush="true" /><!-- footer and tags -->
 <script type="text/javascript">
 var subPlanNum = 0;
+console.log("${planList }");
 $(document).ready(function(){
 	$('#duration').daterangepicker({
 		showDropdowns: true,
