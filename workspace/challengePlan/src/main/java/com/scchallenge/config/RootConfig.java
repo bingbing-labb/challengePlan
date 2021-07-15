@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.FirestoreOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -32,6 +33,7 @@ public class RootConfig {
 	public Firestore initFirebaseFirestore() throws IOException {
 		log.debug("firebaseStore found ");
 		Firestore db = FirestoreClient.getFirestore();
+
 		/*try {
 			InputStream firebaseAccount = 
 					new FileInputStream("D:\\git\\min\\challengePlan\\workspace\\challengePlan\\src\\main\\resources\\static\\ScchallengePrivateKey.json");

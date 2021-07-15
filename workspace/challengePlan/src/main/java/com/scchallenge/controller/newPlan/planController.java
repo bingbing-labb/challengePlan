@@ -37,7 +37,6 @@ public class planController {
 		log.debug("user plan List : " + paramMap);
 		mav.addObject("planList", paramMap);
 		log.debug("user plan List in mav : " + mav);
-		log.info(locale + " - newPlan(): 뷰와 연결");
 		return mav;
 	}
 }

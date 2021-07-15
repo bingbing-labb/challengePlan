@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 @Service
 public class FirebaseInitializer {
 	
-	private String projectId = "scchallenge-5f3aa";
+	/*private String projectId = "scchallenge-5f3aa";
 	@PostConstruct
 	public void initializer() {
 		
@@ -55,5 +55,5 @@ public class FirebaseInitializer {
 					
 		
 		
-	}
+	}*/
 }

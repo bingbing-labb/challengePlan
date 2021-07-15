@@ -1,6 +1,9 @@
 package com.scchallenge.service.newPlan;
 
+import java.io.Console;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -9,6 +12,8 @@ import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
 import com.scchallenge.vo.Admin;
@@ -32,24 +37,38 @@ public class planServiceImpl implements planService{
 		ApiFuture<WriteResult>result=db.collection(COLLETION_NAME).document(String.valueOf(planCnt+1)).set(plan);
 		
 		log.debug("update admin plan data : " + updateAdminData());
-		
 		log.info("new Plan added: plan no."+planCnt + "==>" + plan.getUid() + ":" +plan.getPlanTitle());
 		
 		return result.get().getUpdateTime().toString();
 	}
 
+
 	@Override
-	public Plan getPlanDetail(String pid) throws Exception {
+	public List<Object> getPlan(String uid) throws Exception {
+		Query snapshot = db.collection(COLLETION_NAME).whereEqualTo("uid", uid);
+		List<Object> planList = new ArrayList<>();
+		for(DocumentSnapshot doc : snapshot.get().get()) {
+			log.info("each plan : " + doc.getId());
+			if(doc.get("pid") != null) {
+				planList.add(doc.get("pid"));
+			}
+		}
+		return planList;
+	}
+	
+	@Override
+	public Map<String, Object> getPlanDetail(String pid) throws Exception {
 		DocumentReference def = db.collection(COLLETION_NAME).document(pid);
 		ApiFuture<DocumentSnapshot> apiFuture = def.get();
 		DocumentSnapshot dSnapshot = apiFuture.get();
 		
-		Plan plan = null;
+		Map<String, Object> planDetail= new HashMap<>();
+		
 		if(dSnapshot.exists()) {
-			plan = dSnapshot.toObject(Plan.class);
-			return plan;
+			planDetail = dSnapshot.getData();
 		}
-		return null;
+		
+		return planDetail;
 	}
 
 	@Override
@@ -99,4 +118,5 @@ public class planServiceImpl implements planService{
 		
 		return dSnapshot;
 	}
+
 }
