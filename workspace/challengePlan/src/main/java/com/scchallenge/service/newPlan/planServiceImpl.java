@@ -37,8 +37,8 @@ public class planServiceImpl implements planService{
 	public String insertPlan(Map<String, Object> paramMap) throws Exception {
 		
 		ApiFuture<WriteResult>result=db.collection("Member").document("0").collection(COLLETION_NAME).document(paramMap.get("Pid").toString()).set(paramMap);
-//		int cnt = Integer.parseInt(paramMap.get("Pid").toString())
-		int cnt = getAllPlan(paramMap.get("Uid").toString()).size();
+		int cnt = Integer.valueOf(paramMap.get("Pid").toString());
+//		int cnt = getAllPlan(paramMap.get("Uid").toString()).size();
 		log.debug("update admin plan data : " +  updateAdminData(cnt));
 		log.info("new Plan added: plan no."+paramMap.get("Pid") + "==>" + paramMap.get("Uid") + ":" +paramMap.get("PlanTitle"));
 		
@@ -111,6 +111,14 @@ public class planServiceImpl implements planService{
 		
 	}
 	
+	@Override
+	public String planCnt() throws Exception{
+		String cnt = String.valueOf(db.collection("Member").document("0").collection(COLLETION_NAME).document("admin").get().get().get("planCnt"));
+		log.debug("check planCnt : " + cnt); 
+		return cnt;
+	}
+	
+	
 	public Map<String, Object> updateAdminData(int planCnt) throws Exception {
 		
 		log.debug("updateAdminData start");
@@ -124,10 +132,6 @@ public class planServiceImpl implements planService{
 		return data;
 	}
 	
-	public String planCnt() throws Exception{
-		String cnt = (String) db.collection("admin").document("ver0").get().get().get("planCnt");
-		return cnt;
-	}
 
 
 }

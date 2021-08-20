@@ -113,6 +113,7 @@ function clearForm(form, secId){
 
 function validation(param){
 	var dismiss = ['Description'];
+	console.log(param);
 	if (typeof param != 'object'){
 		var serialize= param.split('&');
 		

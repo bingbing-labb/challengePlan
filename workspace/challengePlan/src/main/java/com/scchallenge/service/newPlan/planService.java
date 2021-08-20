@@ -12,5 +12,6 @@ public interface planService {
 	public List<String> getAllPlan(String uid) throws Exception;
 	public String updatePlan(Map<String, Object> plan) throws Exception;
 	public String deletePlan(String id) throws Exception; 
+	public String planCnt() throws Exception;
 
 }

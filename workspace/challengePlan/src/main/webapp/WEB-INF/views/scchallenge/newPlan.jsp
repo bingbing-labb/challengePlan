@@ -32,10 +32,10 @@
 				<button type="button" class="btn btn-primary" onclick='showModal()'>목록 보기</button>
 			</div>
 					<input type='hidden' id='subPlanCnt' name='subPlanCnt'/>
-					<input type='hidden' class='fromDate' id="fromDate" name='fromDate' value='' />
-					<input type='hidden' class='toDate' id="toDate" name='toDate'  value='' />
+					<input type='hidden' class='fromDate' id="fromDate" name='StartDate' value='' />
+					<input type='hidden' class='toDate' id="toDate" name='EndDate'  value='' />
 					<div class="form-group">
-						<input id="planTitle" type="text" name='planTitle' class="form-control" placeholder="제목">
+						<input id="planTitle" type="text" name='PlanTitle' class="form-control" placeholder="제목">
 					</div>
 					 <div class="form-group">
 						<div class='input-group date'>
@@ -46,7 +46,7 @@
 						</div> 
 						<div class="checkBoxContainer">
 							<button class="btn btn-danger btn-round" type="button" id="addSubPlan">추가</button>
-							<input class="form-check-input" type="checkbox" id="subPlan" name='subPlan'>
+							<input class="form-check-input" type="checkbox" id="subPlan">
 							<p>세부 일정 추가</p>
 						</div>
 						<div class="subPlanContainer" id="subPlanContainer">
@@ -55,7 +55,7 @@
 						</div>
 					</div>
 					<div class='form-group'>
-						<textarea id='description' name='description' rows='6' class='form-control' placeholder='description'></textarea> 
+						<textarea id='description' name='Description' rows='6' class='form-control' placeholder='description'></textarea> 
 					</div>	
 			</form>
 			
@@ -132,7 +132,6 @@
 </div>
 <script type="text/javascript">
 var subPlanNum = 0;
-/*console.log("${paramMap}");*/
 
 $(document).ready(function(){
 	 setDateRange('#duration');
@@ -142,19 +141,19 @@ $(document).ready(function(){
 $('input:checkbox').on('click',function(){
 	var useSubPlan = $('#subPlan').prop("checked");
 	
-	console.log("subPaln clicked");
-	
 	if(useSubPlan){
 		console.log("checked subPlan btn : " + useSubPlan);
 		$("#addSubPlan").show();
-		// 이후 코드 정리
+		
 		addSubPlan();
+		
 		$('#subPlanCnt').val(subPlanNum);
 		
 	}else{
-		console.log("checked subPlan btn : " + useSubPlan);
+
 		$("#addSubPlan").hide();
 		$("#subPlanContainer .row").html('');
+		
 		subPlanNum=0;
 		
 	}
@@ -181,8 +180,8 @@ function savePlan(){
 		fromDate= $('#fromDate').val()
 		toDate=$('#toDate').val();
 		}
-	
-	var param = {
+	//modify code :  ajax -> form submit 
+	/* var param = {
 			PlanTitle:$('#planTitle').val(),
 			StartDate:fromDate,
 			EndDate:toDate,
@@ -200,13 +199,18 @@ function savePlan(){
 		console.log("subPlanCheck : " + subPlanList);
 		param.SubPlan=subPlanList;
 	}
-	
+	 */
+	var param = $('#planRegisterform').serialize();
+	console.log(param);
 	if(!validation(param))
 		return;
 	
-	var url = "/scchallenge/newPlan";
+	document.planRegisterform.action = "/scchallenge/newPlan";
+	document.planRegisterform.method ='POST';
+	document.planRegisterform.submit();
 	
-	$.ajax({
+	//modify code :  ajax -> form submit 
+	/* $.ajax({
 		type:'POST',
 		url:url,
 		data : param,
@@ -231,7 +235,7 @@ function savePlan(){
 		error:function(){
 			
 		}
-	});
+	}); */
 }
 	
 function addSubPlan(){
@@ -248,7 +252,8 @@ function addSubPlan(){
 	
 	//일정 날짜 추가
 	html+='<div class="col-md-6"><div class="form-group subDate"><div class="input-group date">';
-	html+='<input type="date" id="subDuration'+i+'" class="form-control datetimepicker" autocomplete="off" placeholder="일정 기간"	onchange="checkDate(event)"/>';
+	html+='<input type="date" id="subDuration'+i+'" name ="subDuration'+i
+	html+='" class="form-control datetimepicker" autocomplete="off" placeholder="일정 기간" onchange="checkDate(event)"/>';
 	html+='</div></div></div>';
 	
 	$('#subPlanContainer .row').append(html);

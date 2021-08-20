@@ -8,6 +8,7 @@ import java.util.*;
 
 import org.apache.ibatis.reflection.wrapper.BaseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.support.lob.LobCreator;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.comparator.Comparators;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,23 +36,22 @@ public class planController {
 	@RequestMapping("/scchallenge/newPlan")
 	public ModelAndView newPlan(@RequestParam Map<String, Object> paramMap, ModelAndView mav, Locale locale) throws Exception{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		log.debug("@@@@@@@@@@@@@ new Plan requset");
+		log.debug("@@@@@@@@@@@@@ new plan requset");
 		
 		List<String> list = new ArrayList<>();
 		
 		list= planService.getAllPlan("0");
 		
-		int pid = 0;
-		
 		if(list != null && list.size() > 0) {
 			list.sort(Comparator.reverseOrder());
-			pid = Integer.parseInt(list.get(0))+1;
-			log.debug("@@@@@@@@@@@ new pid : " + pid);
 		}
 		
 		//insert new plan
 		if(paramMap != null && paramMap.size() > 0) {
+			String pid =planService.planCnt();
+			log.debug("@@@@@@@@@@@@ new plan pid : " + pid);
 			log.debug("Exist param, param check : " + paramMap);
+			
 			if(paramMap.get("PlanTitle") == null) {
 				mav.addObject("paramMap", paramMap);
 				return mav;
@@ -59,10 +59,10 @@ public class planController {
 			
 			//impl로 넘겨서 처리
 			paramMap.put("Uid", "0");
-			paramMap.put("Pid", String.valueOf(pid));
+			paramMap.put("Pid",pid);
 			paramMap.put("RegDate", sdf.format(new Date()));
 			
-			log.info("@@@@@@@@@@@@@ insert New Plan =====>" + paramMap);
+			log.info("@@@@@@@@@@@@@ new plan insert  =====>" + paramMap);
 			log.debug(planService.insertPlan(paramMap) + " || New Plan Added");
 		}				
 		
@@ -78,9 +78,12 @@ public class planController {
 	public Map<String, Object> addPlan(@RequestParam Map<String,Object> paramMap) throws Exception{
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try {
+			
+			log.info("@@@@@@@@@@@@@ insert New Plan =====>" + paramMap);
 			String updateTime = planService.insertPlan((Map<String, Object>) paramMap.get("newPlan"));
 			log.debug("new plan added | " +updateTime);
 			log.debug("Parameter : " + paramMap.get("newPlan"));
+			
 		}catch (Exception e) {
 			log.error(e.getMessage());
 			resultMap.put("error", e.getMessage());
