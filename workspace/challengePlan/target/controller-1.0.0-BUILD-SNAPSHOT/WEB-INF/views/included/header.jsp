@@ -28,6 +28,7 @@
     <link href="/resources/css/nucleo-icons.css" rel="stylesheet" />
     
     <link href="/resources/css/design.css" rel="stylesheet" />
+    <link href="/resources/css/js-snackbar.css" rel="stylesheet"/>
 </head>
 <style>
  .calendar-section {
@@ -42,6 +43,7 @@
 <script src="/resources/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
 <script src="/resources/js/popper.js" type="text/javascript"></script>
 <script src="/resources/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/resources/js/js-snackbar.js" type="text/javascript"></script>
 
 <!-- Switches -->
 <script src="/resources/js/bootstrap-switch.min.js"></script>
@@ -81,13 +83,13 @@
 		<div class="collapse navbar-collapse main-nav" id="navbarToggler">
                 <ul class="navbar-nav ml-auto">
                 	<li class="nav-item">
-                        <a href='#schedule' class="nav-link" style="text-align:1.6;">SCHEDULE<i class="nc-icon nc-book-bookmark" style="margin-left:5px;"></i></a>
+                        <a href='schedule' class="nav-link" style="text-align:1.6;">SCHEDULE<i class="nc-icon nc-book-bookmark" style="margin-left:5px;"></i></a>
                     </li>
                 	<li class="nav-item">
-                        <a href='#checkList' class="nav-link">CHECK LIST<i class="nc-icon nc-layout-11" style="margin-left:5px"></i></a>
+                        <a href='checkList' class="nav-link">CHECK LIST<i class="nc-icon nc-layout-11" style="margin-left:5px"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a href='#newPlan' class="nav-link">NEW PLAN <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
+                        <a href='newPlan' class="nav-link">NEW PLAN <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
                     </li>
                     <li class="nav-item">
                         <a href='#' id="myPage" class="nav-link">MyPage <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
@@ -101,23 +103,47 @@
 	</div>
 </nav>
 <script type="text/javascript">
-$(".main-nav ul li a").on("click", function(e){
-	var href = new String(e.currentTarget.href);
-	var id = href.substring(href.lastIndexOf("#"), href.length);
-	console.log(href + ":" + id);
-	if(id.includes('newPlan')){
-		$(id).show();
-		console.log(id+'showed');
-	}else{
-		$('#newPlan').hide();
-	}
-});
-
 function clearForm(form, secId){
 	$('.'+secId).hide();
     $('[type=text],[type=date],[type=time], select, textarea', form).val('');
     $('[type=checkbox]:checked, [type=radio]:checked', form).prop('checked', false);
     $('#challDur').val('2 시간');
     $('#planAsync option:eq(0)').prop("selected","selected");
+}
+
+function validation(param){
+	for(var key in param){
+		if(param[key]=='' || param[key] == null){
+			alert('칸을 모두 채워주세요');
+			//빈칸 번쩍이는 function 추가
+			return false;
+		}
+	}
+	return true;
+}
+function main(form){
+	var check = confirm("작업을 종료하시고 메인화면으로 이동하시겠습니까?")
+	if (check){
+		location.href = "main"
+		if(form != null){
+			console.log(form+" cleared")
+			$('[type=text],[type=date],[type=time], select, textarea', form).val('');
+		    $('[type=checkbox]:checked, [type=radio]:checked', form).prop('checked', false);
+		}
+	}
+}
+function dateFormat(date, seperator){
+	var yy=date.getFullYear();
+	var mm=date.getMonth()+1;
+	var dd=date.getDate();
+	var result = yy+seperator;
+	if(mm <10)
+		result+='0';
+	result+=mm+seperator;
+	if(dd < 10)
+		result +='0';
+	result+=dd;
+	return result;
+
 }
 </script>

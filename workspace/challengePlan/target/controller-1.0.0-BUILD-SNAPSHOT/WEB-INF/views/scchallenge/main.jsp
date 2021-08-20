@@ -52,7 +52,90 @@
     		</div>
     	</div>
     </div>
- 	<div class='breaker'></div>
-	<jsp:include page="/WEB-INF/views/scchallenge/checkList.jsp" flush="true" />
-	<jsp:include page="/WEB-INF/views/scchallenge/newPlan.jsp" flush="true" />
+    <div id='planModal' class="modal fade" role='dialog' aria-labelledby='popupModalLabel' aria-hidden='true'>
+	<div class='modal-dialog' role='document'>
+		<div class='modal-content'>
+			<div class='modal-header'>
+				<h5 class='modal-title' id='popupModalLable'>
+					<b>플랜 등록</b>
+				</h5>
+				<button type='button' class='close' data-dismiss='modal' aria-label='Close'></button>
+			</div>
+			<div class='modal-body'>
+				<div style='max-height:600px; overflow:auto'>
+					<form name='calPlanRegForm' id='calPlanRegForm' method='post'>
+						<input type='hidden' name='startDate' id='startDate'>
+						<input type='hidden' name='endDate' id='endDate'>
+						<div class="form-group">
+							<label>기간</label>
+							<input type="text" id="duration" name="duration" class="form-control" readonly>
+						</div>
+						<div class="form-group">
+							<label>제목</label>
+							<input id="planTitle" name='planTitle' type="text" class="form-control" placeholder="제목">
+						</div>
+						<div style="float:right">
+							<input class="form-check-input" type="checkbox" id="allDate">
+							<p style='margin-left:1em'>하루 종일</p>
+						</div>
+						<div class="form-group">
+							<label>시작 시간</label>
+							<input id="fromTime" name='fromTime' type="time" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>종료시간</label>
+							<input id="toTime" name='toTime' type="time" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>설명</label>
+							<textarea id='description' name='description' class='form-control' placeholder="description"></textarea>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer" style="padding: 10px">
+				<button type="submit" class="btn btn-outline-primary" data-dismiss="modal">등록</button>
+				<button type="button" class="btn btn-outline-danger" data-dismiss="modal">닫기</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class='breaker'></div>
+<script type="text/javascript">
+
+function setSelectedDate(start, end){
+	$("#startDate").val(start);
+	$("#endDate").val(end);
+	
+	$("#duration").val(start+"~"+end);
+} 	
+function getAllPlan(arg){
+
+	var allPlan = new Array();
+	
+	var param ={
+		start:dateFormat(arg.start,"-"),
+		end:dateFormat(arg.end,"-")
+	}
+	
+	var url="/scchallenge/main/getUserPlan";	
+	$.ajax({
+		type:'POST',
+		url:url,
+		data:param,
+		beforeSend:function(){
+			console.log(param);
+		},
+		success:function(result){
+			console.log(result);
+		},
+		error:function(err){
+			console.log(err);
+		}
+		
+	});
+	 console.log(allPlan);
+	return allPlan;
+}
+</script>
 	<jsp:include page="/WEB-INF/views/included/footer.jsp" flush="true" /><!-- footer and tags -->

@@ -28,6 +28,7 @@
     <link href="/resources/css/nucleo-icons.css" rel="stylesheet" />
     
     <link href="/resources/css/design.css" rel="stylesheet" />
+    <link href="/resources/css/js-snackbar.css" rel="stylesheet"/>
 </head>
 <style>
  .calendar-section {
@@ -42,6 +43,7 @@
 <script src="/resources/js/jquery-ui-1.12.1.custom.min.js" type="text/javascript"></script>
 <script src="/resources/js/popper.js" type="text/javascript"></script>
 <script src="/resources/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/resources/js/js-snackbar.js" type="text/javascript"></script>
 
 <!-- Switches -->
 <script src="/resources/js/bootstrap-switch.min.js"></script>
@@ -76,18 +78,18 @@
                     <span class="navbar-toggler-bar"></span>
                     <span class="navbar-toggler-bar"></span>
         	</button>
-			<a class="navbar-brand" href="main" style="font-size:1.8em">challenge!</a>
+		
 		</div>
 		<div class="collapse navbar-collapse main-nav" id="navbarToggler">
                 <ul class="navbar-nav ml-auto">
                 	<li class="nav-item">
-                        <a href='#schedule' class="nav-link" style="text-align:1.6;">SCHEDULE<i class="nc-icon nc-book-bookmark" style="margin-left:5px;"></i></a>
+                        <a href='main' class="nav-link" style="text-align:1.6;">SCHEDULE<i class="nc-icon nc-book-bookmark" style="margin-left:5px;"></i></a>
                     </li>
                 	<li class="nav-item">
-                        <a href='#checkList' class="nav-link">CHECK LIST<i class="nc-icon nc-layout-11" style="margin-left:5px"></i></a>
+                        <a href='checkList' class="nav-link">CHECK LIST<i class="nc-icon nc-layout-11" style="margin-left:5px"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a href='#newPlan' class="nav-link">NEW PLAN <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
+                        <a href='newPlan' class="nav-link">NEW PLAN <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
                     </li>
                     <li class="nav-item">
                         <a href='#' id="myPage" class="nav-link">MyPage <i class="nc-icon nc-user-run" style="margin-left:5px"></i></a>
@@ -101,18 +103,6 @@
 	</div>
 </nav>
 <script type="text/javascript">
-$(".main-nav ul li a").on("click", function(e){
-	var href = new String(e.currentTarget.href);
-	var id = href.substring(href.lastIndexOf("#"), href.length);
-	console.log(href + ":" + id);
-	if(id.includes('newPlan')){
-		$(id).show();
-		console.log(id+'showed');
-	}else{
-		$('#newPlan').hide();
-	}
-});
-
 function clearForm(form, secId){
 	$('.'+secId).hide();
     $('[type=text],[type=date],[type=time], select, textarea', form).val('');
@@ -120,4 +110,154 @@ function clearForm(form, secId){
     $('#challDur').val('2 시간');
     $('#planAsync option:eq(0)').prop("selected","selected");
 }
+
+function validation(param){
+	var dismiss = ['Description'];
+	if (typeof param != 'object'){
+		var serialize= param.split('&');
+		
+		for(var idx in serialize){
+			var key =serialize[idx].substring(0, serialize[idx].indexOf('='));
+			param[key] = serialize[idx].substring(key.length+1, serialize[idx].length);
+			if(key.includes('Time'))
+				param[key]=param[key].replace('%3A', ":");
+		}
+	}
+	console.log("validation check param - > "); console.log(param);
+	
+	for(var key in param){
+		if(param[key]=='' || param[key] == null){
+			alert('칸을 모두 채워주세요');
+			//빈칸 번쩍이는 function 추가
+			return false;
+		}
+	}
+	return true;
+}
+function main(form){
+	var check = confirm("작업을 종료하시고 메인화면으로 이동하시겠습니까?")
+	if (check){
+		location.href = "main"
+		if(form != null){
+			console.log(form+" cleared")
+			$('[type=text],[type=date],[type=time], select, textarea', form).val('');
+		    $('[type=checkbox]:checked, [type=radio]:checked', form).prop('checked', false);
+		}
+	}
+}
+function dateFormat(date, seperator){
+	if(typeof date == "object" && date instanceof Date){
+	}else{
+		date = new Date(date);
+	}
+	
+	if(seperator == null)
+		return;
+	
+	var yy=date.getFullYear();
+	var mm=date.getMonth()+1;
+	var dd=date.getDate();
+	var result = yy+seperator;
+	if(mm <10)
+		result+='0';
+	result+=mm+seperator;
+	if(dd < 10)
+		result +='0';
+	result+=dd;
+	return result;
+
+}
+function setDateRange(id){
+	var originRange=$(id).val();
+	var start = '';
+	var end = '';
+	console.log($(id).val());
+	// 이후 적용 문제 고민 후 해결
+	if(originRange != null) {
+		originRange = originRange.split('~');
+		start= originRange[0];
+		end=originRange=[1];
+		console.log($('#startDate').val());
+	}
+	
+
+	$(id).daterangepicker({
+		showDropdowns: true,
+		timePicker: false,
+	    timePicker24Hour: false,
+	    autoUpdateInput: false,
+	    ranges: {
+	        '하루': [moment().startOf('day'), moment().endOf('day')],
+	        '3일': [moment().startOf('day'),moment().subtract(-2, 'days').endOf('day')],
+	        '일주일': [moment().startOf('day'),moment().subtract(-7, 'days').endOf('day')],
+	        '한 달': [moment().startOf('day'), moment().subtract(-1, 'month').endOf('day')],
+	        '3개월': [ moment().startOf('day'), moment().subtract(-3, 'month').endOf('day')],
+	        //'지난6개월': [moment().subtract(6, 'month'), moment()],
+	        '1년': [ moment().startOf('day'),moment().subtract(-1, 'year').endOf('day')]
+	    },
+	    locale: {
+	        format: "YYYY-MM-DD",
+	        separator: " - ",
+	        applyLabel: "적용",
+	        cancelLabel: "취소",
+	        fromLabel: "시작",
+	        toLabel: "종료",
+	        customRangeLabel: "지정",
+	        cancelLabel: '삭제',
+	        weekLabel: "주",
+	        daysOfWeek: [ "일","월","화","수","목","금","토" ],
+	        monthNames: [ "1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월" ],
+	        firstDay: 1
+	    },
+	    alwaysShowCalendars: true,
+	    startDate: moment().startOf('day'),
+	    endDate:moment().endOf('day'),
+	    drops: "dn"
+	}, function(start, end, label) {
+		//console.log('New date range selected: ' + start.format('YYYY-MM-DD HH:mm') + ' to ' + end.format('YYYY-MM-DD HH:mm') + ' (predefined range: ' + label + ')');
+	});
+	/* $(id).on('click',function(){
+		originRange=$(id).val();
+		$(id).val('');
+	}); */
+	
+	
+	$(id).on('apply.daterangepicker', function(ev, picker){
+		var start=picker.startDate.format('YYYY-MM-DD');
+		var end =picker.endDate.format('YYYY-MM-DD');
+		var str= start + ' ~ ' + end;
+		
+		dateValid(start, end);
+
+		$(id).val(str);
+		
+		if(document.planRegisterform != null){
+			document.planRegisterform.fromDate.value = start;
+			document.planRegisterform.toDate.value = end;
+		}
+		
+
+	});
+
+	$(id).on('cancel.daterangepicker', function(ev, picker){
+		$(id).val('');
+		document.planRegisterform.fromDate.value='';
+		document.planRegisterform.toDate.value='';
+	});
+	
+}
+
+function dateValid(start, end){
+	if($('#parentDuration').val() == null)
+		return;
+	
+	var parentDuration = $('#parentDuration').val().split('~');
+	
+	if(parentDuration[0] < start | parentDuration[1] < end){
+		alert('상위 일정의 기간에서 벗어난 날짜를 선택할 수 없습니다.');
+		return false;
+	}
+	return true;
+}
+
 </script>

@@ -1,3 +1,6 @@
+tbody span{
+	vertical-align:middle;
+}
 .breaker{
 	height:8vh;
 	background-color:rgb(223,223,223);
@@ -131,6 +134,11 @@
 
 	}
 	
+.planListTbl{
+	table-layout:auto;
+	width:100%
+}
+
 /*checkList css*/
 
 .planContainer{

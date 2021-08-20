@@ -1,0 +1,25 @@
+{
+  "name": "challengeplan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bingbing-labb/challengePlan.git"
+  },
+  "keywords": [
+    "scchallenge"
+  ],
+  "author": "me",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/bingbing-labb/challengePlan/issues"
+  },
+  "homepage": "https://github.com/bingbing-labb/challengePlan#readme",
+  "dependencies": {
+    "netlify-lambda": "^2.0.11"
+  }
+}
